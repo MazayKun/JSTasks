@@ -1,0 +1,26 @@
+.animation {
+    width: 150px;
+    height: 150px;
+    background-color: #f00;
+    animation-name: first_anim;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    transition: background-color 500ms;
+}
+
+.animation:hover {
+    background-color: #ff0;
+}   
+@keyframes first_anim {
+    25% {
+        transform: translate(100px, 0);
+    }
+    50% {
+        transform: translate(100px, 100%);
+    }
+    75%, 100% {
+        transform: translate(100px, 100%) rotate(145deg) scale(2, 2);
+    }
+}

@@ -1,0 +1,23 @@
+.annotation {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    border: 1px lightgreen solid;
+    padding: 10px 10px 20px;
+    width: 150px;
+    box-sizing: border-box;
+}
+
+.annotation button {
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+
+    background: lightgreen;
+    color: white;
+    border: none;
+}
+
+body {
+    height: 10000px;
+}

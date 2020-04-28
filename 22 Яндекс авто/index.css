@@ -1,0 +1,181 @@
+body{
+    width: 100%;
+    overflow: scroll;
+    display: grid;
+    grid-template-columns: minmax(18px, 24fr) 52fr minmax(18px, 24fr);
+}
+main {
+    grid-column-start: 2;
+    background-color: #f6f5f3;
+    height: 175%;
+}
+
+.logo {
+    position: relative; 
+    width: 134px;
+    left: 75.5%;
+    top: 0;
+}
+
+.showcase {
+    width: 100%;
+    display: flex;
+}
+.content {
+    width: 66%;
+    margin: 14.5px auto 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28.7px;
+    line-height: 1.2em;
+    letter-spacing: 0.01%;
+}
+.cars {
+    width: 91.5%;
+    margin: 5.8% 0 0 2%;
+
+}
+.arrow {
+    width: 47px;
+    height: 47px;
+    border-radius: 23px;
+    background-color: #ffdb4a;
+    box-shadow: 1px 1px 1px #fc9246;
+    box-sizing: border-box;
+    align-self: center;
+}
+.arrow.left {
+    position: relative;
+    left: 60px;
+    top: 9px;
+}
+.arrow.right {
+    position: relative;
+    right: 60px;
+    top: 8.2px;
+}
+.arrow.right img {
+    margin: 13px 0 0 17.5px;
+}
+.arrow img {
+    margin: 15px 0 0 14px;
+    width: 14px;
+}
+q{
+    quotes: "\00ab" "\00bb";
+}
+.button:hover {
+    opacity: 0.8;
+}
+.video {
+    background-image: url(./images/Video.png);
+    background-size: 100%;
+    width: 65%;
+    margin: 36px auto 0;
+    height: 289px;
+}
+.video_annotation {
+    width: 100%;
+    height:  40px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 8px;
+    padding-left: 12px;
+    font-size: 22.5px;
+    color: white;
+    background-color: rgba(55, 70, 70, 0.7);
+    letter-spacing: 0.55px;
+    box-sizing: border-box;
+}
+.play {
+    width: 100px;
+    height: 100px;
+    border-radius: 55px;
+    background-color: #ffdb4a;
+    box-shadow: 1px 1px 1px #8e492e;
+    box-sizing: border-box;
+    margin: 57px 0 0 205px;
+}
+.play img {
+    width: 35px;
+    margin: 28px 0 0 38px;
+}
+.header {
+    margin-top: 51px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    margin-left: 3px;
+    width: 100%;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 37.9px;
+    letter-spacing: 0.1px;
+}
+.header2 {
+    margin-top: 52px;
+    padding-left: 40px;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 34px;
+    letter-spacing: 0.005px;
+}
+.methods {
+    display: grid;
+    grid-template-columns:repeat(4, 1fr);
+    grid-column-gap: 12px;
+    width: 90.9%;
+    margin: 0 4.55%;
+}
+.methods .hs {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.05px;
+    width: 175px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.methods .as {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    width: 180px;
+    margin-top: 14px;
+    line-height: 1.24em;
+}
+.methods img[src="./images/Catalogue icon.png"] {
+    width: 79px;
+}
+.methods img[src="./images/Magnifying glass icon.png"] {
+    margin-top: -3px;
+    margin-left: -1px;
+    margin-bottom: 3px;
+    width: 66px;
+}
+.methods img[src="./images/Intersections icon.png"] {
+    width: 155px;
+    margin-left: -5px;
+    margin-bottom: 5px;
+}
+.methods img[src="./images/Search field icon.png"] {
+    width: 140px;
+    margin-top: 4px;
+    margin-left: 1px;
+    margin-bottom: 6px;
+}
+.accept {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 29px;
+    box-sizing: border-box;
+    padding-top: 11px;
+    width: 32%;
+    height: 55px;
+    border-radius: 5px;
+    margin: 50px auto 0;
+    color: #473f0f;
+    background: linear-gradient(to bottom, #ffe34a, #ffdb01);
+}
+.accept:hover {
+    background: linear-gradient(to bottom, #ffe86b, #ffe12f);
+}

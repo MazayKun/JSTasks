@@ -1,0 +1,124 @@
+body {
+    background-color: #CFD0CF;
+}
+
+header { 
+    font-family: Arial, sans-serif;
+    color: #434344;
+    line-height: 47px;
+    font-size: 42px;
+    margin: 40px auto 40px auto;
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    display: grid;
+    width: 595px;
+    height: 440px;
+    margin: 0 auto;
+    grid-template-rows: 130px 130px 130px;
+    grid-template-columns: 130px 130px 130px 130px;
+    grid-gap: 25px;
+}
+.card {
+    background: linear-gradient(45deg, #22AB93, #19668d);
+    box-sizing: border-box;
+    border: 5px solid white;
+    border-radius: 9px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    perspective: 600px;
+    text-align: center;
+    font-size: 0px;
+}
+
+.wrong{
+    border-color: #F44336;
+    background: #F44336 !important;
+    font-size: 75px;
+    transform: rotateY(180deg);
+}
+.right{
+    border-color: #5AD66F;
+    background: #5AD66F;
+    font-size: 75px;
+    transform: rotateY(180deg);
+}
+
+/* Раздел анимации ----------------------------------------------------------------------------*/
+
+.flip {
+    animation: flip 0.2s linear forwards;
+}
+.unflip {
+    animation: unflip 0.2s linear forwards;
+}
+.right-flip {
+    animation: right-flip 0.2s linear forwards;
+}
+.wrong-flip {
+    animation: wrong-flip 0.2s linear forwards;
+}
+@keyframes right-flip {
+    50%{
+        font-size:0px;
+        background: linear-gradient(45deg, #22AB93, #19668d);
+    }
+    51% {
+        border-color: #5AD66F;
+        background: #5AD66F;
+        font-size: 75px;
+    }
+    100% {
+        border-color: #5AD66F;
+        background: #5AD66F;
+        font-size: 75px;
+        transform: rotateY(180deg);
+    }
+}
+@keyframes wrong-flip {
+    50%{
+        font-size:0px;
+        background: linear-gradient(45deg, #22AB93, #19668d);
+    }
+    51% {
+        border-color: #F44336;
+        background: #F44336;
+        font-size: 75px;
+    }
+    100% {
+        border-color: #F44336;
+        background: #F44336;
+        font-size: 75px;
+        transform: rotateY(180deg);
+    }
+}
+@keyframes flip{
+    50%{
+        font-size:0px;
+        background: linear-gradient(45deg, #22AB93, #19668d);
+    }
+    51% {
+        background: white;
+        font-size: 75px;
+    }
+    100% {
+        background: white;
+        font-size: 75px;
+        transform: rotateY(180deg);
+    }
+}
+@keyframes unflip{
+    0% {background: white;
+        transform: rotateY(180deg);
+        font-size: 75px;
+    }
+    50% {
+        background: white;
+        font-size: 75px;
+    }
+    51%{
+        font-size:0px;
+        background: linear-gradient(45deg, #22AB93, #19668d);
+    }
+}

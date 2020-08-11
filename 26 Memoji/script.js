@@ -1,20 +1,49 @@
+// Ключевые значения состояний каждой карточки
 const UNSELECTED = 0;
 const SELECTED = 1;
 const WRONG = 2;
 const SOLVED = 3;
 
-const cards = Array.from(document.querySelectorAll('.card'));
+// Количество активных карт (карты, для которых пара еще не найдена, но они перевернуты рубашкой вниз)
 var uncertainCardsNumber = 0;
+// Время на игру 
+var time = 60;
+
+// Флаг первого клика
+var isClicked = false;
+
+// Массив карт с веб страницы
+const cards = Array.from(document.querySelectorAll('.card'));
+
+// Объект таймера 
+const timer = document.querySelector('.timer');
+timer.textContent = '0' + (time - time % 60)/60 + ':' + ((time < 10) ? '0' + time : (time % 60 < 10)? '0' + time % 60 : time % 60 );
+
+// Кнопка play again
+const playBtn = document.querySelector('.play');
+
+// Окно окончания игры
+const endGame = document.querySelector('.end_game');
+
+// Массив состояний карт
 var conditions = shuffleCards(cards);
+
 cards.forEach(card => {
         card.addEventListener('click', clickOnCard);
     }
 )
+playBtn.addEventListener('click', newGame);
+var intervalId; 
 
+// ---------------------Секция функций---------------------------
 
-//Секция функций 
-
+// Событие клика по карточке 
 function clickOnCard(event) {
+    if(!isClicked) {
+        isClicked = true;
+        intervalId = setInterval(gameIter, 1000); 
+    }
+    // Обратный разворот карточки, которая только что была перевернута, повторным кликом по ней
     if(conditions[cards.indexOf(this)]['state'] == SELECTED && uncertainCardsNumber == 1) {
         uncertainCardsNumber = 0;
         conditions[cards.indexOf(this)]['state'] = UNSELECTED;
@@ -22,21 +51,30 @@ function clickOnCard(event) {
         this.classList.toggle('unflip');
         return;
     }
+    // Игнорирование кликов по картам, которые подсвечены красным или зеленым
     if(conditions[cards.indexOf(this)]['state'] != UNSELECTED) {
         return;
     }
+    // Переворот карты, которая лежала рубашкой вверх
     if (!this.classList.contains('flip') && !this.classList.contains('unflip')) {
         this.classList.add('flip');
     }else{
         this.classList.toggle('flip');
         this.classList.toggle('unflip');
     }
+
+    // Выбор ситуации в зависимости от количества активных карт на столе 
+    // (Активными считаются перевернутые карты рубашкой вниз без подсветки и карты, подсвеченные красным)
     switch (uncertainCardsNumber) {
+        // Активных карт нет, так что мы просто переворачиваем выбранную рубашкой вниз
         case 0: {
             uncertainCardsNumber++;
             conditions[cards.indexOf(this)]['state'] = SELECTED;
             break;
         }
+        // Одна активная карта на столе была, мы смотрим, является ли кликнутая ее парой
+        // Если это пара, то они оби становятся неактивными и подсвечиваются зеленым
+        // Если это не пара, то они остаются активными и подсвечиваются красным
         case 1: {
             var index = cards.indexOf(this);
             if(conditions[conditions[index]['pair']]['state'] == SELECTED) {
@@ -47,6 +85,9 @@ function clickOnCard(event) {
                 cards[index].classList.remove('flip');
                 cards[conditions[index]['pair']].classList.remove('flip');
                 uncertainCardsNumber = 0;
+                if(hasWon()) {
+                    win();
+                }
             }else {
                 for (var i = 0 ; i < 12; i++) {
                     if(conditions[i]['state'] == SELECTED) {
@@ -60,6 +101,8 @@ function clickOnCard(event) {
             } 
             break;
         }
+        // На столе 2 активных карты, значит это была неверная пара. Просто открывается новая активная карта
+        // А 2 красные теряют статус активных и возвращаются в исходное положение
         case 2: {
             for (var i = 0; i < 12; i++) {
                 if(conditions[i]['state'] == WRONG) {
@@ -74,16 +117,39 @@ function clickOnCard(event) {
             uncertainCardsNumber = 1;
             break;
         }
-
     }
-        
-    
 }
 
-function getRndInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+// Функция заново начинает игру по клику на кнопку play again
+function newGame() {
+    uncertainCardsNumber = 0
+    conditions = shuffleCards();
+    for (var card of cards) {
+        card.classList.remove('flip');
+        card.classList.remove('unflip');
+        card.classList.remove('wrong');
+        card.classList.remove('right');
+        card.classList.remove('wrong-flip');
+        card.classList.remove('right-flip');
+    }
+    time = 60;
+    timer.textContent = '0' + (time - time % 60)/60 + ':' + ((time < 10) ? '0' + time : (time % 60 < 10)? '0' + time % 60 : time % 60 );
+    isClicked = false;
+    endGame.classList.add('invisible');
+    document.querySelector('.jump:nth-child(4)').classList.remove('invisible');
 }
 
+// Функция одного тика игрового мира (Максимальный таймер 599 секунды)
+function gameIter() {
+    time--;
+    timer.textContent = '0' + (time - time % 60)/60 + ':' + ((time < 10) ? '0' + time : (time % 60 < 10)? '0' + time % 60 : time % 60 );
+    if(time == 0) {
+        clearInterval(intervalId);
+        timeIsOver();
+    }
+}
+
+// Функция перетасовки карточек
 function shuffleCards() {
     var cardsNumbers = [];
     var conditions = []
@@ -102,9 +168,47 @@ function shuffleCards() {
     }
     return conditions;
 }
-function sleep(ms) {
-    var date = new Date();
-    var curDate = null;
-    do { curDate = new Date(); }
-    while(curDate-date < ms);
+
+// Функция вызывается при победе в игр
+function win() {
+    showResult(true);
+    clearInterval(intervalId);
+}
+
+// Функция вызывается при окончании времени, те при поражении 
+function timeIsOver() {
+    showResult(false);
+}
+
+// Проверка условий победы
+function hasWon() {
+    for (var condition of conditions) {
+        if(condition['state'] != SOLVED) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Фунция, которая делает видимым результат (true=win, false=lose)
+function showResult(res) {
+    var spans = Array.from(document.querySelectorAll('.jump'));
+    var letters;
+    if(res) {
+        playBtn.textContent = 'Play again';
+        letters = ['W', 'i', 'n'];
+        spans[3].classList.add('invisible');
+    }else{
+        playBtn.textContent = 'Try again';
+        letters = ['L', 'o', 's', 'e'];
+    }
+    for (var i = 0; i < letters.length; i++) {
+        spans[i].textContent = letters[i];
+    }
+    endGame.classList.remove('invisible');
+}
+
+// Случайное число от 0 до max (не включительно)
+function getRndInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
 }

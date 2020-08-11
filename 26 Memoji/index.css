@@ -21,6 +21,29 @@ main {
     grid-template-columns: 130px 130px 130px 130px;
     grid-gap: 25px;
 }
+
+.end_game {
+    outline: none;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+	left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+}
+
+.timer {
+    font-size: 32px;
+    font-family: Arial, sans-serif;
+    color: #434344;
+    line-height: 36px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
 .card {
     background: linear-gradient(45deg, #22AB93, #19668d);
     box-sizing: border-box;
@@ -30,6 +53,18 @@ main {
     perspective: 600px;
     text-align: center;
     font-size: 0px;
+}
+
+.result_window {
+    display: inline-block;
+    min-width: 350px;
+    background-color: #CFD0CF;
+    margin-top: 15%;
+}
+.result {
+    font-size: 48px;
+    font-family: Arial, sans-serif;
+    margin: 30px auto 0;
 }
 
 .wrong{
@@ -44,9 +79,60 @@ main {
     font-size: 75px;
     transform: rotateY(180deg);
 }
+.invisible {
+    display: none !important;
+}
 
-/* Раздел анимации ----------------------------------------------------------------------------*/
+/* ------------------------------------Кнопка Play again--------------------------------------------*/
 
+.play {
+    color: white;
+    display: inline-block;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    padding: 10px 30px;
+    margin: 40px 0 30px;
+    background: linear-gradient(45deg, #22AB93, #19668d);
+    box-sizing: border-box;
+    text-decoration: none;
+    box-shadow: 1px 1px 1px rgba(0,0,0,1);
+}
+.play:hover {
+    opacity: 0.9;
+}
+.play:active {
+    box-shadow: inset 2px 1px 8px rgba(0,0,0,1);
+}
+
+/* ------------------------------------Раздел анимации--------------------------------------------*/
+
+/* ------------------------------------Анимация прыгающих букв--------------------------------------------*/
+.jump:nth-child(1) {
+    display: inline-block;
+    animation: jump 1s ease-out infinite;
+}
+.jump:nth-child(2) {
+    display: inline-block;
+    animation: jump 1s 0.1s ease-out infinite;
+}
+.jump:nth-child(3) {
+    display: inline-block;
+    animation: jump 1s 0.2s ease-out infinite;
+}
+.jump:nth-child(4) {
+    display: inline-block;
+    animation: jump 1s 0.3s ease-out infinite;
+}
+@keyframes jump {
+    30%{
+        transform: translateY(-10px) scaleY(1.2);
+    }
+    85%{
+        transform: translateY(10px) scaleY(0.7);
+    }
+}
+
+/* ------------------------------------Анимации переворачивающихся карт--------------------------------------------*/
 .flip {
     animation: flip 0.2s linear forwards;
 }
